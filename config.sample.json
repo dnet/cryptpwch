@@ -1,0 +1,8 @@
+{
+    "db_url": "sqlalchemy_db_url",
+	"table": "name_of_the_table_with_the_fields_below",
+	"fields": {
+		"username": "username",
+		"password": "password"
+	}
+}
