@@ -5,7 +5,7 @@ from flask import Flask, render_template, request
 from contextlib import closing
 from sqlalchemy import create_engine, Table, Column, String, MetaData
 from sqlalchemy.sql import select, update
-from os import path
+from os import path, urandom
 from crypt import crypt
 from base64 import b64encode
 import json
@@ -38,8 +38,7 @@ def process_post():
             (old_hash,) = userinfo.fetchone()
             if crypt(request.form['pw'], old_hash) != old_hash:
                 return 'Invalid password'
-        with file('/dev/random') as random:
-            chunk = random.read(6)
+        chunk = urandom(6)
         salt = '$6${random}$'.format(random=b64encode(chunk, './'))
         db.execute(update(users, user_filter,
             {password: crypt(request.form['pw1'], salt)}))
