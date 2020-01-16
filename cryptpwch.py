@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from __future__ import with_statement, print_function
+from __future__ import with_statement, print_function, unicode_literals
 from flask import Flask, render_template, request
 from contextlib import closing
 from sqlalchemy import create_engine, Table, Column, String, MetaData
@@ -45,7 +45,7 @@ def process_post():
     return 'Password changed successfully'
 
 def get_config():
-    with file(CONFIG_FILE, 'rb') as cfg:
+    with open(CONFIG_FILE, 'rb') as cfg:
         return json.load(cfg)
 
 if __name__ == '__main__':
