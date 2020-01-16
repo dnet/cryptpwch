@@ -39,7 +39,7 @@ def process_post():
             if crypt(request.form['pw'], old_hash) != old_hash:
                 return 'Invalid password'
         chunk = urandom(6)
-        salt = '$6${random}$'.format(random=b64encode(chunk, './'))
+        salt = '$6${random}$'.format(random=b64encode(chunk, b'./').decode('ascii'))
         db.execute(update(users, user_filter,
             {password: crypt(request.form['pw1'], salt)}))
     return 'Password changed successfully'
